@@ -43,19 +43,16 @@ $endif$
 \setupalign[hz,hanging]
 \setupitaliccorrection[global, always]
 \setupbodyfontenvironment[default][em=italic] % use italic as em, not slanted
-\usemodule[simplefonts$if(fontsize)$,$fontsize$$endif$]
-\setmainfontfallback[DejaVu Serif][range={greekandcoptic, greekextended}, force=yes, rscale=auto]
+\definefallbackfamily[mainface][rm][DejaVu Serif][preset=range:greek, force=yes]
 $if(mainfont)$
-\setmainfont[$mainfont$]
+\definefontfamily[mainface][rm][$mainfont$]
+\definefontfamily[mainface][mm][$if(mathfont)$$mathfont$$else$TeX Gyre Math$endif$]
 $endif$
 $if(sansfont)$
-\setsansfont[$sansfont$][rscale=auto]
+\definefontfamily[mainface][tt][$sansfont$]
 $endif$
 $if(monofont)$
-\setmonofont[$monofont$][features=none, rscale=auto]
-$endif$
-$if(mathfont)$
-\setmathfont[$mathfont$][rscale=auto]
+\definefontfamily[mainface][tt][$monofont$][features=none]
 $endif$
 \setupwhitespace[$if(whitespace)$$whitespace$$else$medium$endif$]
 $if(indenting)$
@@ -64,6 +61,7 @@ $endif$
 $if(interlinespace)$
 \setupinterlinespace[$for(interlinespace)$$interlinespace$$sep$,$endfor$]
 $endif$
+\setupbodyfont[mainface$if(fontsize)$,$fontsize$$endif$]
 
 \setuphead[chapter]            [style=\tfd,header=empty]
 \setuphead[section]            [style=\tfc]
